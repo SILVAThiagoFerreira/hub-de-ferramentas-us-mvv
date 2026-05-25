@@ -241,14 +241,6 @@ a {
   color: #fff;
 }
 
-.hero__text {
-  margin: 18px 0 0;
-  max-width: 60ch;
-  color: var(--muted);
-  font-size: 1.02rem;
-  line-height: 1.72;
-}
-
 .section-head {
   display: flex;
   align-items: end;
@@ -327,8 +319,7 @@ a {
 .tool-card__head {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
   position: relative;
   z-index: 1;
 }
@@ -355,22 +346,6 @@ a {
 .tool-mark svg * {
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-.tool-card__slug {
-  margin: 6px 0 0;
-  margin-left: auto;
-  max-width: calc(100% - 84px);
-  color: rgba(255, 255, 255, 0.54);
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.74rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-align: right;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .tool-card h3 {

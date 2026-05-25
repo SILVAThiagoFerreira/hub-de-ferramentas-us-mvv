@@ -132,7 +132,6 @@ grid.innerHTML = tools
       <article class="tool-card reveal" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2}; --delay: ${index * 90}ms;">
         <div class="tool-card__head">
           <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
-          <p class="tool-card__slug">${tool.repo}</p>
         </div>
         <h3>${tool.title}</h3>
         <p>${tool.description}</p>
