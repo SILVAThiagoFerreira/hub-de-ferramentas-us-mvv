@@ -124,8 +124,6 @@ const icons = {
 };
 
 const grid = document.getElementById("tool-grid");
-const toolCountTargets = document.querySelectorAll("[data-tool-count]");
-const linkCountTargets = document.querySelectorAll("[data-link-count]");
 
 const renderLogo = (kind) => icons[kind]();
 
@@ -145,11 +143,3 @@ grid.innerHTML = tools
       </article>
     `)
   .join("");
-
-toolCountTargets.forEach((node) => {
-  node.textContent = String(tools.length);
-});
-
-linkCountTargets.forEach((node) => {
-  node.textContent = String(tools.length * 2);
-});
