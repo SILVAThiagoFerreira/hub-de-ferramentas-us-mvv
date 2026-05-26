@@ -23,6 +23,19 @@ def validate_inputs(config: dict, workbook_result) -> ValidationReport:
 
     repository_pattern = re.compile(validation_config["repository_id_pattern"])
     metadata = config["tool_metadata"]
+    hub_repository_ids = {
+        repository_id
+        for group in config["hubs"]["groups"]
+        for repository_id in group["repository_ids"]
+    }
+    missing_hub_assignments = [repository_id for repository_id in metadata if repository_id not in hub_repository_ids]
+    for repository_id in missing_hub_assignments:
+        report.add_issue(
+            _error(
+                "missing_hub_assignment",
+                f"Tool '{repository_id}' is not assigned to any hub group",
+            )
+        )
     seen_repository_ids: set[str] = set()
     seen_github_urls: set[str] = set()
     seen_pages_urls: set[str] = set()

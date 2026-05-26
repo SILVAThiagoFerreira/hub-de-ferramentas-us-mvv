@@ -34,6 +34,7 @@ Arquivo: `config.json`
 - `artifacts`
 - `output`
 - `tool_metadata`
+- `hubs`
 
 ### Campos relevantes
 | Campo | Tipo | Obrigatorio | Significado |
@@ -50,6 +51,11 @@ Arquivo: `config.json`
 | `tool_metadata.<repo>.kind` | string | sim | Tipo de icone |
 | `tool_metadata.<repo>.accent` | string | sim | Cor principal |
 | `tool_metadata.<repo>.accent2` | string | sim | Cor secundaria |
+| `hubs.groups[]` | array | sim | Lista ordenada de hubs renderizados no front-end |
+| `hubs.groups[].slug` | string | sim | Identificador tecnico do hub |
+| `hubs.groups[].title` | string | sim | Nome exibido do hub |
+| `hubs.groups[].description` | string | sim | Texto de apoio do hub |
+| `hubs.groups[].repository_ids[]` | array | sim | Lista de repositorios pertencentes ao hub |
 
 ## 3. Manifesto gerado
 Arquivo: `output/tools_manifest.json`
@@ -65,7 +71,17 @@ Arquivo: `output/tools_manifest.json`
 | `counts` | objeto | sim | Quantidades processadas |
 | `validation` | objeto | sim | Resumo da validacao |
 | `generator` | objeto | sim | Informacoes do ambiente |
+| `hubs` | array | sim | Hubs agrupados e ordenados para o front-end |
 | `tools` | array | sim | Lista de ferramentas |
+
+### Estrutura de `hubs[]`
+| Campo | Tipo | Obrigatorio | Significado |
+|---|---|---:|---|
+| `slug` | string | sim | Identificador tecnico do hub |
+| `title` | string | sim | Nome exibido |
+| `description` | string | sim | Texto de apoio |
+| `tool_count` | inteiro | sim | Quantidade de ferramentas no hub |
+| `tools` | array | sim | Ferramentas do hub na ordem configurada |
 
 ### Estrutura de `tools[]`
 | Campo | Tipo | Obrigatorio | Significado |

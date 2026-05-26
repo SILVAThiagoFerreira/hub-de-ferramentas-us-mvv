@@ -63,7 +63,7 @@ const icons = {
   `,
 };
 
-const grid = document.getElementById("tool-grid");
+const grid = document.getElementById("hub-grid");
 
 const renderLogo = (kind) => (icons[kind] || icons.default)();
 
@@ -71,27 +71,56 @@ function renderStatus(message, modifier = "") {
   grid.innerHTML = `<div class="tool-grid__message${modifier ? ` tool-grid__message--${modifier}` : ""}" role="status">${message}</div>`;
 }
 
-function renderTools(tools) {
-  grid.innerHTML = tools
-    .map((tool, index) => `
-      <article class="tool-card reveal" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2}; --delay: ${index * 90}ms;">
-        <div class="tool-card__head">
-          <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
+function renderToolCard(tool, index) {
+  return `
+    <article class="tool-card reveal" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2}; --delay: ${index * 90}ms;">
+      <div class="tool-card__head">
+        <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
+      </div>
+      <h3>${tool.formal_title}</h3>
+      <p>${tool.description}</p>
+      <div class="tool-card__actions">
+        <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página</a>
+        <a class="tool-link" href="${tool.github_url}" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </article>
+  `;
+}
+
+function renderHubGroup(group, offset) {
+  const cards = group.tools.map((tool, index) => renderToolCard(tool, offset + index)).join("");
+  return `
+    <section class="hub-section panel panel--soft reveal" aria-labelledby="hub-${group.slug}">
+      <header class="hub-section__header">
+        <div>
+          <p class="eyebrow eyebrow--muted">HUB</p>
+          <h2 id="hub-${group.slug}">${group.title}</h2>
+          <p class="section-head__text">${group.description}</p>
         </div>
-        <h3>${tool.formal_title}</h3>
-        <p>${tool.description}</p>
-        <div class="tool-card__actions">
-          <a class="tool-link tool-link--primary" href="${tool.pages_url}" target="_blank" rel="noreferrer">Abrir página</a>
-          <a class="tool-link" href="${tool.github_url}" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
-      </article>
-    `)
-    .join("");
+        <span class="hub-section__count">${group.tool_count} ferramentas</span>
+      </header>
+      <div class="tool-grid tool-grid--group">${cards}</div>
+    </section>
+  `;
+}
+
+function renderManifest(manifest) {
+  const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
+  if (!hubs.length) {
+    const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
+    if (!tools.length) {
+      throw new Error("Manifesto sem hubs ou ferramentas.");
+    }
+    grid.innerHTML = `<section class="hub-section panel panel--soft reveal" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool, index) => renderToolCard(tool, index)).join("")}</div></section>`;
+    return;
+  }
+
+  grid.innerHTML = hubs.map((group, index) => renderHubGroup(group, index * 100)).join("");
 }
 
 async function loadManifest() {
   grid.setAttribute("aria-busy", "true");
-  renderStatus("Carregando ferramentas...");
+  renderStatus("Carregando hubs...");
 
   try {
     const response = await fetch(`${manifestUrl}?v=${Date.now()}`, { cache: "no-store" });
@@ -100,13 +129,7 @@ async function loadManifest() {
     }
 
     const manifest = await response.json();
-    const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
-
-    if (!tools.length) {
-      throw new Error("Manifesto sem ferramentas.");
-    }
-
-    renderTools(tools);
+    renderManifest(manifest);
   } catch (error) {
     renderStatus(`Não foi possível carregar o manifesto. ${error.message}`, "error");
   } finally {

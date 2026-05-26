@@ -4,7 +4,7 @@
 O repositorio possui um hub visual para ferramentas da Enaex Brasil com foco na operação US Vale Verde. A base precisa ser organizada como um sistema de dados auditavel, reutilizavel e compreensivel por terceiros.
 
 ## Objetivo
-Transformar a planilha de entrada em um manifesto validado para o hub, com configuracao externa, logs por execucao, saidas reproduziveis, copy revisada e testes minimos.
+Transformar a planilha de entrada em um manifesto validado para dois hubs, com configuracao externa, logs por execucao, saidas reproduziveis, copy revisada e testes minimos.
 
 ## Escopo
 - Criar arquitetura modular em `src/`.
@@ -12,6 +12,7 @@ Transformar a planilha de entrada em um manifesto validado para o hub, com confi
 - Criar documentacao tecnica e operacional.
 - Criar validacao de dados antes do processamento.
 - Criar saida consumida pelo front-end.
+- Criar agrupamento de ferramentas por hub no manifesto e no front-end.
 - Criar testes automatizados minimos.
 
 ## Fora de escopo

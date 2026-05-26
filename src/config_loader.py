@@ -19,6 +19,7 @@ REQUIRED_TOP_LEVEL_KEYS = (
     "output",
     "runtime",
     "tool_metadata",
+    "hubs",
 )
 
 REQUIRED_TOOL_METADATA_KEYS = ("description", "kind", "accent", "accent2")
@@ -94,6 +95,7 @@ def _validate_sections(config: dict) -> None:
     _require_mapping(config, "output")
     _require_mapping(config, "runtime")
     _require_mapping(config, "tool_metadata")
+    _require_mapping(config, "hubs")
 
     _require_string(config["project"], "name")
     _require_string(config["project"], "version")
@@ -131,6 +133,23 @@ def _validate_sections(config: dict) -> None:
     _require_string(runtime, "timestamp_format")
     _require_string(runtime, "run_id_format")
 
+    hubs = config["hubs"]
+    _require_non_empty_list(hubs, "groups")
+    all_group_ids: set[str] = set()
+    for group in hubs["groups"]:
+        if not isinstance(group, dict):
+            raise ConfigError("Each hub group must be an object")
+        _require_string(group, "slug")
+        _require_string(group, "title")
+        _require_string(group, "description")
+        _require_non_empty_list(group, "repository_ids")
+        for repository_id in group["repository_ids"]:
+            if not isinstance(repository_id, str) or not repository_id.strip():
+                raise ConfigError(f"Hub group '{group['slug']}' has an invalid repository id")
+            if repository_id in all_group_ids:
+                raise ConfigError(f"Repository id '{repository_id}' is assigned to more than one hub group")
+            all_group_ids.add(repository_id)
+
     tool_metadata = config["tool_metadata"]
     if not tool_metadata:
         raise ConfigError("tool_metadata cannot be empty")
@@ -145,6 +164,13 @@ def _validate_sections(config: dict) -> None:
                 raise ConfigError(
                     f"tool_metadata entry for '{tool_id}' has invalid {color_field}: {metadata[color_field]}"
                 )
+
+    missing_grouped_tools = [tool_id for tool_id in tool_metadata if tool_id not in all_group_ids]
+    if missing_grouped_tools:
+        raise ConfigError(
+            "Every tool_metadata entry must belong to exactly one hub group: "
+            + ", ".join(sorted(missing_grouped_tools))
+        )
 
 
 def _require_mapping(container: dict, key: str) -> None:

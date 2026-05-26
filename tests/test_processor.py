@@ -22,6 +22,21 @@ def test_processor_builds_manifest(temp_workspace):
 
     assert len(records) == 6
     assert manifest["counts"]["valid_rows"] == 6
+    assert manifest["counts"]["hub_count"] == 2
+    assert [hub["title"] for hub in manifest["hubs"]] == [
+        "Ferramentas Gerais",
+        "Ferramentas US Vale Verde",
+    ]
+    assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
+        "Conversor DXF para KMZ Operacional",
+        "Blasthole Profile Creator",
+        "Report Sismografia Enaex",
+    ]
+    assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
+        "Consolidação Plan./Exec. | US Vale Verde",
+        "Tempos e Movimentos | Carregamento de Explosivo",
+        "PFR | Plano de Fogo Realizado",
+    ]
     assert [tool["formal_title"] for tool in manifest["tools"]] == [
         "Conversor DXF para KMZ Operacional",
         "Consolidação Plan./Exec. | US Vale Verde",

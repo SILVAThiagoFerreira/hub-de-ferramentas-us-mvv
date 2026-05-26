@@ -47,9 +47,37 @@ def build_tool_records(config: dict, workbook_result) -> list[ToolRecord]:
     return records
 
 
+def build_hub_groups(config: dict, tool_records: list[ToolRecord]) -> list[dict]:
+    records_by_id = {record.repository_id: record for record in tool_records}
+    groups: list[dict] = []
+
+    for group_config in config["hubs"]["groups"]:
+        records = []
+        for repository_id in group_config["repository_ids"]:
+            try:
+                records.append(asdict(records_by_id[repository_id]))
+            except KeyError as exc:
+                raise ProcessingError(
+                    f"Missing tool record for repository '{repository_id}' in hub '{group_config['slug']}'"
+                ) from exc
+
+        groups.append(
+            {
+                "slug": group_config["slug"],
+                "title": group_config["title"],
+                "description": group_config["description"],
+                "tool_count": len(records),
+                "tools": records,
+            }
+        )
+
+    return groups
+
+
 def build_manifest(config: dict, workbook_result, tool_records: list[ToolRecord], run_id: str, generated_at: str) -> dict:
+    hub_groups = build_hub_groups(config, tool_records)
     return {
-        "manifest_version": "1.0",
+        "manifest_version": "2.0",
         "project": {
             "name": config["project"]["name"],
             "version": config["project"]["version"],
@@ -68,6 +96,7 @@ def build_manifest(config: dict, workbook_result, tool_records: list[ToolRecord]
             "total_rows": len(workbook_result.rows),
             "valid_rows": len(tool_records),
             "invalid_rows": 0,
+            "hub_count": len(hub_groups),
         },
         "validation": {
             "status": "passed",
@@ -78,6 +107,7 @@ def build_manifest(config: dict, workbook_result, tool_records: list[ToolRecord]
             "python": platform.python_version(),
             "openpyxl": openpyxl.__version__,
         },
+        "hubs": hub_groups,
         "tools": [asdict(record) for record in tool_records],
     }
 

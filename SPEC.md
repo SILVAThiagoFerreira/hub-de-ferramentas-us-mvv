@@ -1,13 +1,14 @@
 # SPEC
 
 ## Objetivo tecnico
-Construir um pipeline que leia a planilha de repositorios, valide estrutura e semantica, enriqueça os dados com metadados visuais externos e gere um manifesto JSON consumido pelo hub statico.
+Construir um pipeline que leia a planilha de repositorios, valide estrutura e semantica, enriqueça os dados com metadados visuais externos e gere um manifesto JSON consumido por dois hubs estaticos: `Ferramentas Gerais` e `Ferramentas US Vale Verde`.
 
 ## Regras de negocio
 1. A planilha de entrada e a fonte de verdade para `repository_id`, `formal_title`, `github_url` e `pages_url`.
 2. `config.json` e a fonte de verdade para descricao, tipo de icone e cores de cada ferramenta.
 3. O front-end consome somente `output/tools_manifest.json`.
 4. A ordem das ferramentas no manifesto segue a ordem das linhas da planilha.
+5. Cada ferramenta pertence a exatamente um hub definido em `config.json`.
 
 ## Validacoes obrigatorias
 - A planilha deve conter a aba configurada em `config.json`.
@@ -17,6 +18,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - `github_url` e `pages_url` devem ser URLs HTTPS validas.
 - O nome do repositorio nas URLs deve bater com `repository_id`.
 - Cada `repository_id` deve existir em `tool_metadata`.
+- Cada `repository_id` deve existir em exatamente um grupo de `hubs.groups`.
 - Cor de acento deve ser hex valida.
 - IDs duplicados sao erro fatal.
 
@@ -41,9 +43,11 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - Metadados visuais externos: configuracao, nao planilha.
 - Validacao de cabecalhos por presenca, nao por ordem.
 - `validation.require_tool_metadata` e um guardrail fixado em `true`; se for alterado, a configuracao falha.
+- `hubs.groups` define os blocos que o front-end renderiza e tambem a ordenacao dos cards.
 
 ## Limitacoes conhecidas
 - Novas ferramentas exigem atualizar a planilha e `tool_metadata`.
+- Novas ferramentas exigem atualizar a planilha, `tool_metadata` e o grupo correspondente em `hubs.groups`.
 - URLs customizadas fora de `github.com` e `github.io` exigem ajuste de configuracao.
 - O front-end depende do manifesto gerado; se o arquivo nao existir, a interface mostra erro de carga.
 

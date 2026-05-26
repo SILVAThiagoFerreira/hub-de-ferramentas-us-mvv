@@ -43,6 +43,14 @@ class ToolRecord:
 
 
 @dataclass(frozen=True)
+class HubGroup:
+    slug: str
+    title: str
+    description: str
+    repository_ids: list[str]
+
+
+@dataclass(frozen=True)
 class ValidationIssue:
     severity: str
     code: str
