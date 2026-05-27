@@ -73,7 +73,7 @@ function renderStatus(message, modifier = "") {
 
 function renderToolCard(tool, index) {
   return `
-    <article class="tool-card reveal" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2}; --delay: ${index * 90}ms;">
+    <article class="tool-card reveal" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
       <div class="tool-card__head">
         <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
       </div>
@@ -88,7 +88,7 @@ function renderToolCard(tool, index) {
 }
 
 function renderHubGroup(group, offset) {
-  const cards = group.tools.map((tool, index) => renderToolCard(tool, offset + index)).join("");
+  const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
     <section class="hub-section panel panel--soft reveal" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
@@ -111,7 +111,7 @@ function renderManifest(manifest) {
     if (!tools.length) {
       throw new Error("Manifesto sem hubs ou ferramentas.");
     }
-    grid.innerHTML = `<section class="hub-section panel panel--soft reveal" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool, index) => renderToolCard(tool, index)).join("")}</div></section>`;
+    grid.innerHTML = `<section class="hub-section panel panel--soft reveal" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
     return;
   }
 
