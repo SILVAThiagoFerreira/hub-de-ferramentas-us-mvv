@@ -36,6 +36,7 @@ def temp_workspace(tmp_path: Path, project_root: Path, base_config: dict) -> dic
         project_root / "input" / "repositorios_github_pages.xlsx",
         input_dir / "repositorios_github_pages.xlsx",
     )
+    shutil.copy2(project_root / "index.html", tmp_path / "index.html")
 
     config = deepcopy(base_config)
     config["paths"]["input_workbook"] = "input/repositorios_github_pages.xlsx"

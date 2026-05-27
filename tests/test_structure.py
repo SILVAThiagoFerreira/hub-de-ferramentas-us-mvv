@@ -25,6 +25,7 @@ def test_required_files_exist_and_are_not_empty(project_root):
         "src/models.py",
         "src/output_writer.py",
         "src/processor.py",
+        "src/frontend_sync.py",
         "src/validator.py",
     ]
 
@@ -42,15 +43,15 @@ def test_runtime_directories_exist(project_root):
 def test_frontend_reads_generated_manifest(project_root):
     index_text = (project_root / "index.html").read_text(encoding="utf-8")
     script_text = (project_root / "script.js").read_text(encoding="utf-8")
-    assert 'rel="preload" href="output/tools_manifest.json" as="fetch"' in index_text
     assert 'script src="script.js" defer' in index_text
+    assert "<!-- MANIFEST:START -->" in index_text
+    assert '<script type="application/json" id="initial-manifest">' in index_text
     assert "output/tools_manifest.json" in script_text
     assert "renderManifest" in script_text
     assert "hub-grid" in script_text
-    assert "?v=${Date.now()}" not in script_text
     assert 'cache: "no-store"' not in script_text
     assert 'cache: "default"' in script_text
-    assert "--delay:" not in script_text
+    assert "initial-manifest" in script_text
 
 
 def test_frontend_copy_is_clean(project_root):
@@ -63,3 +64,4 @@ def test_frontend_copy_is_clean(project_root):
     assert "PAINEL DE ACESSO" in index_text
     assert "Abrir página" in script_text
     assert "Não foi possível" in script_text
+    assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")

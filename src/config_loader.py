@@ -55,6 +55,7 @@ def load_config(config_path: str | Path) -> dict:
         "output_directory": (project_root / paths["output_directory"]).resolve(),
         "logs_directory": (project_root / paths["logs_directory"]).resolve(),
         "manifest_file": (project_root / paths["output_directory"] / artifacts["manifest_filename"]).resolve(),
+        "index_file": (project_root / "index.html").resolve(),
     }
 
     return config
@@ -70,6 +71,7 @@ def build_runtime_paths(config: dict, run_id: str) -> dict:
         "output_directory": output_directory,
         "logs_directory": logs_directory,
         "manifest_file": Path(config["resolved_paths"]["manifest_file"]),
+        "index_file": Path(config["resolved_paths"]["index_file"]),
         "summary_file": output_directory / artifacts["summary_filename_pattern"].format(run_id=run_id),
         "log_file": logs_directory / artifacts["log_filename_pattern"].format(run_id=run_id),
     }

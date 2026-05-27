@@ -1,4 +1,5 @@
 const manifestUrl = "output/tools_manifest.json";
+const embeddedManifestElement = document.getElementById("initial-manifest");
 
 const icons = {
   flight: () => `
@@ -73,7 +74,7 @@ function renderStatus(message, modifier = "") {
 
 function renderToolCard(tool, index) {
   return `
-    <article class="tool-card reveal" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
+    <article class="tool-card" style="--accent: ${tool.accent}; --accent-2: ${tool.accent2};">
       <div class="tool-card__head">
         <div class="tool-mark" aria-hidden="true">${renderLogo(tool.kind)}</div>
       </div>
@@ -90,7 +91,7 @@ function renderToolCard(tool, index) {
 function renderHubGroup(group, offset) {
   const cards = group.tools.map((tool) => renderToolCard(tool)).join("");
   return `
-    <section class="hub-section panel panel--soft reveal" aria-labelledby="hub-${group.slug}">
+    <section class="hub-section panel panel--soft" aria-labelledby="hub-${group.slug}">
       <header class="hub-section__header">
         <div>
           <p class="eyebrow eyebrow--muted">HUB</p>
@@ -111,7 +112,7 @@ function renderManifest(manifest) {
     if (!tools.length) {
       throw new Error("Manifesto sem hubs ou ferramentas.");
     }
-    grid.innerHTML = `<section class="hub-section panel panel--soft reveal" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
+    grid.innerHTML = `<section class="hub-section panel panel--soft" aria-labelledby="hub-fallback"><header class="hub-section__header"><div><p class="eyebrow eyebrow--muted">HUB</p><h2 id="hub-fallback">Ferramentas</h2><p class="section-head__text">Agrupamento único herdado do formato anterior.</p></div></header><div class="tool-grid tool-grid--group">${tools.map((tool) => renderToolCard(tool)).join("")}</div></section>`;
     return;
   }
 
@@ -123,6 +124,12 @@ async function loadManifest() {
   renderStatus("Carregando hubs...");
 
   try {
+    if (embeddedManifestElement?.textContent?.trim()) {
+      const manifest = JSON.parse(embeddedManifestElement.textContent);
+      renderManifest(manifest);
+      return;
+    }
+
     const response = await fetch(manifestUrl, { cache: "default" });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);

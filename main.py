@@ -10,6 +10,7 @@ from pathlib import Path
 from src.config_loader import build_runtime_paths, ensure_runtime_directories, load_config
 from src.data_reader import read_workbook
 from src.exceptions import ConfigError, PipelineError
+from src.frontend_sync import sync_manifest_snapshot
 from src.logger_setup import setup_logger
 from src.output_writer import write_manifest, write_summary
 from src.processor import build_manifest, build_summary, build_tool_records, make_timestamp
@@ -86,8 +87,10 @@ def run_pipeline(config_path: str | Path) -> int:
             log_path=str(runtime_paths["log_file"]),
         )
         write_summary(summary, summary_path, config["output"])
+        sync_manifest_snapshot(runtime_paths["index_file"], runtime_paths["manifest_file"])
 
         logger.info("Manifest written to %s", runtime_paths["manifest_file"])
+        logger.info("Frontend HTML synchronized at %s", runtime_paths["index_file"])
         logger.info("Summary written to %s", summary_path)
         logger.info("Pipeline completed successfully | run_id=%s", run_id)
         return 0
