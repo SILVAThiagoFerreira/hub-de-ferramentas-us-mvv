@@ -36,6 +36,7 @@ Os hubs visuais precisam de uma fonte de dados confiavel, auditavel e reproduziv
 - `validation`: regras de aceite da planilha e dos URLs.
 - `tool_metadata`: descricao, tipo de icone e cores de cada ferramenta.
 - `hubs`: agrupamento e ordenacao dos hubs exibidos no front-end.
+- A ferramenta `correcao-de-cargas` pertence ao hub `Ferramentas Gerais`.
 
 ## Como executar
 ```bash
@@ -50,6 +51,7 @@ python main.py
 
 ## Como evoluir o projeto
 - Adicione novas ferramentas na planilha, em `tool_metadata` e no hub correspondente em `hubs.groups`.
+- A ferramenta `correcao-de-cargas` ja esta mapeada para `Ferramentas Gerais`; siga o mesmo padrao para novos itens.
 - Títulos exibidos vêm da planilha; descrições e metadados visuais vêm de `config.json`.
 - Nao altere o contrato do manifesto sem atualizar `script.js`, `DATA_SCHEMA.md` e os testes.
 - Toda mudanca de regra deve ser documentada em `SPEC.md`.

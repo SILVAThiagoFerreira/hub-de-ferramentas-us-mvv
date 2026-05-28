@@ -78,6 +78,12 @@
       "kind": "wave",
       "accent": "#e20313",
       "accent2": "#37c6b3"
+    },
+    "correcao-de-cargas": {
+      "description": "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado.",
+      "kind": "charge",
+      "accent": "#e20313",
+      "accent2": "#ff8a2a"
     }
   },
   "hubs": {
@@ -88,6 +94,7 @@
         "description": "Ferramentas corporativas e operacionais de uso transversal.",
         "repository_ids": [
           "enaex-plano-de-voo",
+          "correcao-de-cargas",
           "blasthole-profile-creator",
           "aquickreportofseismographicdata"
         ]

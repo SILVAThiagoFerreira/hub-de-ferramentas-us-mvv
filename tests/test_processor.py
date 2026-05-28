@@ -20,8 +20,8 @@ def test_processor_builds_manifest(temp_workspace):
     generated_at = make_timestamp(config)
     manifest = build_manifest(config, workbook, records, "20260525_120000", generated_at)
 
-    assert len(records) == 6
-    assert manifest["counts"]["valid_rows"] == 6
+    assert len(records) == 7
+    assert manifest["counts"]["valid_rows"] == 7
     assert manifest["counts"]["hub_count"] == 2
     assert [hub["title"] for hub in manifest["hubs"]] == [
         "Ferramentas Gerais",
@@ -29,6 +29,7 @@ def test_processor_builds_manifest(temp_workspace):
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][0]["tools"]] == [
         "Conversor DXF para KMZ Operacional",
+        "Correção de Cargas",
         "Blasthole Profile Creator",
         "Report Sismografia Enaex",
     ]
@@ -44,7 +45,11 @@ def test_processor_builds_manifest(temp_workspace):
         "Blasthole Profile Creator",
         "PFR | Plano de Fogo Realizado",
         "Report Sismografia Enaex",
+        "Correção de Cargas",
     ]
+    assert manifest["tools"][6]["description"] == (
+        "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
+    )
     assert manifest["tools"][1]["description"] == (
         "Algoritmo para consolidação operacional de dados de perfuração planejada e executada | US Vale Verde."
     )

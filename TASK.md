@@ -14,6 +14,7 @@ Transformar a planilha de entrada em um manifesto validado para dois hubs, com c
 - Criar saida consumida pelo front-end.
 - Criar agrupamento de ferramentas por hub no manifesto e no front-end.
 - Criar testes automatizados minimos.
+- Manter `correcao-de-cargas` no hub `Ferramentas Gerais` quando o manifesto for regenerado.
 
 ## Fora de escopo
 - Adicionar novas ferramentas nao presentes na planilha.

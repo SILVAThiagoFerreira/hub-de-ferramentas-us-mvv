@@ -9,7 +9,7 @@ def test_load_config_normalizes_paths(project_root):
     assert config["project"]["name"] == "hub-de-ferramentas-us-mvv"
     assert config["resolved_paths"]["input_workbook"].exists()
     assert config["resolved_paths"]["manifest_file"].name == "tools_manifest.json"
-    assert len(config["tool_metadata"]) == 6
+    assert len(config["tool_metadata"]) == 7
 
 
 def test_build_runtime_paths_uses_run_id(project_root):
