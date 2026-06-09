@@ -104,7 +104,7 @@ def validate_inputs(config: dict, workbook_result) -> ValidationReport:
                 )
             )
 
-        if repository_id and pages_repo and repository_id != pages_repo:
+        if repository_id and pages_repo and repository_id.casefold() != pages_repo.casefold():
             report.add_issue(
                 _error(
                     "pages_repo_mismatch",

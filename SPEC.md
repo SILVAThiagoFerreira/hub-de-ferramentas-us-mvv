@@ -16,7 +16,7 @@ Construir um pipeline que leia a planilha de repositorios, valide estrutura e se
 - `repository_id` nao pode estar vazio.
 - `formal_title` nao pode estar vazio.
 - `github_url` e `pages_url` devem ser URLs HTTPS validas.
-- O nome do repositorio nas URLs deve bater com `repository_id`.
+- O nome do repositorio nas URLs deve bater com `repository_id`; em `pages_url`, a comparacao e case-insensitive para cobrir o caminho canonico do GitHub Pages.
 - Cada `repository_id` deve existir em `tool_metadata`.
 - Cada `repository_id` deve existir em exatamente um grupo de `hubs.groups`.
 - Cor de acento deve ser hex valida.

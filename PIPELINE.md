@@ -21,6 +21,7 @@
 - Se a validacao encontrar erros, o manifesto nao e escrito.
 - Se a escrita falhar, a execucao falha e registra a causa no log.
 - Se um `repository_id` nao estiver alocado a um hub, a configuracao falha antes do processamento.
+- Se `pages_url` usar um caminho canonico com caixa diferente do `repository_id`, a validacao aceita a correspondencia case-insensitive para o GitHub Pages.
 
 ## Saidas por etapa
 - Config: estrutura normalizada.
