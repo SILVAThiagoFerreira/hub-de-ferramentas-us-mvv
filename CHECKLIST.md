@@ -1,41 +1,41 @@
 # CHECKLIST
 
 ## Estrutura
-- [ ] `README.md` criado e preenchido.
-- [ ] `AGENTS.md` criado e preenchido.
-- [ ] `TASK.md` criado e preenchido.
-- [ ] `SPEC.md` criado e preenchido.
-- [ ] `CHECKLIST.md` criado e preenchido.
-- [ ] `PROMPT.md` criado e preenchido.
-- [ ] `PIPELINE.md` criado e preenchido.
-- [ ] `DATA_SCHEMA.md` criado e preenchido.
-- [ ] `config.json` criado e preenchido.
-- [ ] `main.py` criado e preenchido.
-- [ ] `src/` criado com modulos separados.
-- [ ] `input/` presente com a planilha de origem.
-- [ ] `output/` presente.
-- [ ] `logs/` presente.
-- [ ] `tests/` presente.
+- [x] `README.md` criado e preenchido.
+- [x] `AGENTS.md` criado e preenchido.
+- [x] `TASK.md` criado e preenchido.
+- [x] `SPEC.md` criado e preenchido.
+- [x] `CHECKLIST.md` criado e preenchido.
+- [x] `PROMPT.md` criado e preenchido.
+- [x] `PIPELINE.md` criado e preenchido.
+- [x] `DATA_SCHEMA.md` criado e preenchido.
+- [x] `config.json` criado e preenchido.
+- [x] `main.py` criado e preenchido.
+- [x] `src/` criado com modulos separados.
+- [x] `input/` presente com a planilha de origem.
+- [x] `output/` presente.
+- [x] `logs/` presente.
+- [x] `tests/` presente.
 
 ## Qualidade
-- [ ] Nenhum arquivo obrigatorio vazio.
-- [ ] Nenhuma regra critica implícita fora da documentacao.
-- [ ] Nenhum caminho ou limite relevante hardcoded fora do config.
-- [ ] Leitura separada de validacao.
-- [ ] Validacao separada de processamento.
-- [ ] Processamento separado de escrita.
-- [ ] Logs gerados por execucao.
-- [ ] Saidas reproduziveis e identificaveis.
+- [x] Nenhum arquivo obrigatorio vazio.
+- [x] Nenhuma regra critica implícita fora da documentacao.
+- [x] Nenhum caminho ou limite relevante hardcoded fora do config.
+- [x] Leitura separada de validacao.
+- [x] Validacao separada de processamento.
+- [x] Processamento separado de escrita.
+- [x] Logs gerados por execucao.
+- [x] Saidas reproduziveis e identificaveis.
 
 ## Validacao
-- [ ] Config carregavel.
-- [ ] Planilha validada antes do processamento.
-- [ ] Manifesto gerado com sucesso.
-- [ ] Summary gerado com sucesso.
-- [ ] Front-end consumindo o manifesto.
-- [ ] Testes minimos executaveis.
+- [x] Config carregavel.
+- [x] Planilha validada antes do processamento.
+- [x] Manifesto gerado com sucesso.
+- [x] Summary gerado com sucesso.
+- [x] Front-end consumindo o manifesto.
+- [x] Testes minimos executaveis.
 
 ## Evolucao
-- [ ] Mudancas em schema refletidas em docs e testes.
-- [ ] Novas ferramentas adicionadas via planilha + `tool_metadata`.
-- [ ] Mudancas de contrato refletidas no front-end.
+- [x] Mudancas em schema refletidas em docs e testes.
+- [x] Novas ferramentas adicionadas via planilha + `tool_metadata`.
+- [x] Mudancas de contrato refletidas no front-end.
