@@ -20,8 +20,8 @@ def test_processor_builds_manifest(temp_workspace):
     generated_at = make_timestamp(config)
     manifest = build_manifest(config, workbook, records, "20260525_120000", generated_at)
 
-    assert len(records) == 7
-    assert manifest["counts"]["valid_rows"] == 7
+    assert len(records) == 8
+    assert manifest["counts"]["valid_rows"] == 8
     assert manifest["counts"]["hub_count"] == 2
     assert [hub["title"] for hub in manifest["hubs"]] == [
         "Ferramentas Gerais",
@@ -32,6 +32,7 @@ def test_processor_builds_manifest(temp_workspace):
         "Correção de Cargas",
         "Blasthole Profile Creator",
         "Report Sismografia Enaex",
+        "Analisador de Sismograma - Waveform",
     ]
     assert [tool["formal_title"] for tool in manifest["hubs"][1]["tools"]] == [
         "Consolidação Plan./Exec. | US Vale Verde",
@@ -45,9 +46,10 @@ def test_processor_builds_manifest(temp_workspace):
         "Blasthole Profile Creator",
         "PFR | Plano de Fogo Realizado",
         "Report Sismografia Enaex",
+        "Analisador de Sismograma - Waveform",
         "Correção de Cargas",
     ]
-    assert manifest["tools"][6]["description"] == (
+    assert manifest["tools"][7]["description"] == (
         "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado."
     )
     assert manifest["tools"][1]["description"] == (
@@ -58,4 +60,7 @@ def test_processor_builds_manifest(temp_workspace):
     )
     assert manifest["tools"][4]["description"] == (
         "Algoritmo para consolidação de dados do O-PitSurface, DRB e perfuração do cliente em formato modelável de plano de fogo (*.XLSX)."
+    )
+    assert manifest["tools"][6]["description"] == (
+        "Análise de sismogramas em CSV com gráficos por canal, intervalos de desmonte e exportação de relatório em PDF."
     )

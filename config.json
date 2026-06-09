@@ -79,6 +79,12 @@
       "accent": "#e20313",
       "accent2": "#37c6b3"
     },
+    "analisador-de-sismograma": {
+      "description": "Análise de sismogramas em CSV com gráficos por canal, intervalos de desmonte e exportação de relatório em PDF.",
+      "kind": "wave",
+      "accent": "#e20313",
+      "accent2": "#2bb3a3"
+    },
     "correcao-de-cargas": {
       "description": "Aplicação web para análise de carregamento em operações de perfuração e desmonte, com foco em identificar desvios de profundidade e carga total real em relação ao padrão estatístico do conjunto analisado.",
       "kind": "charge",
@@ -96,7 +102,8 @@
           "enaex-plano-de-voo",
           "correcao-de-cargas",
           "blasthole-profile-creator",
-          "aquickreportofseismographicdata"
+          "aquickreportofseismographicdata",
+          "analisador-de-sismograma"
         ]
       },
       {

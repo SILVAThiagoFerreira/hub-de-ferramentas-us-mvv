@@ -19,7 +19,7 @@ def test_pipeline_end_to_end(temp_workspace):
     assert log_files
 
     manifest_payload = json.loads(manifest_path.read_text(encoding="utf-8"))
-    assert len(manifest_payload["tools"]) == 7
+    assert len(manifest_payload["tools"]) == 8
     assert len(manifest_payload["hubs"]) == 2
     assert manifest_payload["hubs"][0]["title"] == "Ferramentas Gerais"
     assert manifest_payload["hubs"][1]["title"] == "Ferramentas US Vale Verde"
