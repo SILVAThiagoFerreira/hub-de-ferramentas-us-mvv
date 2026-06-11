@@ -63,8 +63,12 @@ def test_frontend_copy_is_clean(project_root):
     assert "OPENBLAST" in index_text
     assert "Hub de Ferramentas" in index_text
     assert "Acesso rápido" in index_text
+    assert "VISÃO GERAL" not in index_text
+    assert "Acesso unificado às aplicações operacionais da US MVV em uma interface limpa, com leitura rápida e navegação direta." not in index_text
     assert "Caixa de Ferramentas" not in index_text
     assert "PAINEL DE ACESSO" not in index_text
+    assert "hero__description" not in index_text
+    assert "<span>Ferramentas</span>" not in index_text
     assert "Abrir página" in script_text
     assert "Não foi possível" in script_text
     assert "animation-delay" not in (project_root / "styles.css").read_text(encoding="utf-8")

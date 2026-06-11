@@ -65,33 +65,8 @@ const icons = {
 };
 
 const grid = document.getElementById("hub-grid");
-const overview = {
-  hubs: document.getElementById("stat-hubs"),
-  tools: document.getElementById("stat-tools"),
-  status: document.getElementById("stat-status"),
-};
 
 const renderLogo = (kind) => (icons[kind] || icons.default)();
-
-function updateOverview(manifest) {
-  const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
-  const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
-  const fallbackHubCount = Number(manifest.counts?.hub_count ?? 0);
-  const fallbackToolCount = Number(manifest.counts?.valid_rows ?? manifest.counts?.total_rows ?? 0);
-  const statusLabel = manifest.validation?.status === "passed" ? "Online" : "Revisar";
-
-  if (overview.hubs) {
-    overview.hubs.textContent = String(hubs.length || fallbackHubCount);
-  }
-
-  if (overview.tools) {
-    overview.tools.textContent = String(tools.length || fallbackToolCount);
-  }
-
-  if (overview.status) {
-    overview.status.textContent = statusLabel;
-  }
-}
 
 function renderStatus(message, modifier = "") {
   grid.innerHTML = `<div class="tool-grid__message${modifier ? ` tool-grid__message--${modifier}` : ""}" role="status">${message}</div>`;
@@ -132,7 +107,6 @@ function renderHubGroup(group) {
 
 function renderManifest(manifest) {
   const hubs = Array.isArray(manifest.hubs) ? manifest.hubs : [];
-  updateOverview(manifest);
 
   if (!hubs.length) {
     const tools = Array.isArray(manifest.tools) ? manifest.tools : [];
@@ -148,9 +122,6 @@ function renderManifest(manifest) {
 
 async function loadManifest() {
   grid.setAttribute("aria-busy", "true");
-  if (overview.status) {
-    overview.status.textContent = "Carregando";
-  }
   renderStatus("Carregando manifesto...");
 
   try {
@@ -168,9 +139,6 @@ async function loadManifest() {
     const manifest = await response.json();
     renderManifest(manifest);
   } catch (error) {
-    if (overview.status) {
-      overview.status.textContent = "Indisponível";
-    }
     renderStatus(`Não foi possível carregar o manifesto. ${error.message}`, "error");
   } finally {
     grid.setAttribute("aria-busy", "false");
