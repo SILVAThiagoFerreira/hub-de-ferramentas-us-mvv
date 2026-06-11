@@ -62,6 +62,8 @@ def test_frontend_copy_is_clean(project_root):
     assert "VISUAL/LOGO%20OPENBLAST%20TRANSPARENTE.png" in index_text
     assert "OPENBLAST" in index_text
     assert "Hub de Ferramentas" in index_text
+    assert "brand__wordmark" in index_text
+    assert "brand__logo" not in index_text
     assert "Acesso rápido" in index_text
     assert "hero__title-row" in index_text
     assert "hero__title-mark" in index_text

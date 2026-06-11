@@ -98,10 +98,13 @@ a {
   text-decoration: none;
 }
 
-.brand__logo {
-  width: auto;
-  height: 28px;
-  object-fit: contain;
+.brand__wordmark {
+  color: var(--text);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .page {
